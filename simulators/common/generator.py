@@ -143,9 +143,9 @@ def randomize_breakpoints(
     y_delta,
     x_delta,
     x_excluded,
-    n_points_interval,
+    n_samples_interval,
 ):
-    x_mesh = _get_x_mesh(y_breakpoints, n_points_interval)
+    x_mesh = _get_x_mesh(y_breakpoints, n_samples_interval)
     return randomizer(
         x_breakpoints=x_mesh,
         y_breakpoints=y_breakpoints,
