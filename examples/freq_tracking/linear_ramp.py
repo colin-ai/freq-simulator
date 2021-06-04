@@ -4,9 +4,9 @@ from simulators.common.generator import (
     data_interpolation,
     finite_diff,
     linear_interp,
-    randomize_breakpoints,
     to_csv,
 )
+from simulators.common.randomizer import randomize
 from simulators.freq_tracking.model import compute_phase
 from simulators.freq_tracking.viz import plot_signal, plot_freq_signal, get_x_mesh
 import numpy as np
@@ -19,7 +19,7 @@ time_interval = 1  # seconds
 n_seq = 100
 
 # Simulator
-x_rand, y_rand = randomize_breakpoints(
+x_rand, y_rand = randomize(
     y_breakpoints=freq_breakpoints,
     n_seq=n_seq,
     y_delta=5,
@@ -35,7 +35,7 @@ dataset = add_derivation(
 n_samples = (len(freq_breakpoints) - 1) * n_points_interval
 to_csv(
     dataset.reshape(n_seq * 2, n_samples),
-    f"./datasets/freq_tracking_linear_{n_seq}_seq_{n_samples}_samples.csv",
+    f"./datasets/freq_tracking/freq_tracking_linear_{n_seq}_seq_{n_samples}_samples.csv",
 )
 
 # plot_dataset_freq(

@@ -31,39 +31,6 @@ def polyn_interp(xp, yp):
     return velocities
 
 
-def randomizer(
-    x_breakpoints,
-    y_breakpoints,
-    n_seq: int,
-    y_delta: int,
-    x_delta: int,
-    x_excluded: int,
-):
-    if x_excluded < 1.0:
-        raise ValueError(
-            f"Value of x_excluded should be higher or equal than 1 Value found {x_excluded}."
-        )
-
-    rng = default_rng()
-    xp = np.array(x_breakpoints)
-    yp = np.array(y_breakpoints)
-    seq_len = len(xp)
-
-    yp = np.tile(yp, reps=(n_seq, 1))
-    xp = np.tile(xp, reps=(n_seq, 1))
-
-    if y_delta != 0:
-        yp[:, x_excluded:-x_excluded] += rng.integers(
-            -y_delta, y_delta, (n_seq, seq_len - x_excluded * 2)
-        )
-    if x_delta != 0:
-
-        xp[:, x_excluded:-x_excluded] += rng.integers(
-            -x_delta, x_delta, (n_seq, seq_len - x_excluded * 2)
-        )
-
-    return xp, yp
-
 
 def _init_dataset(input):
     n_seq = input.shape[0]
@@ -116,44 +83,6 @@ def batch_dataset(filename, batch_size, seq_size=None):
     dataset = loadtxt(filename, delimiter=";")
     dataset = dataset[:, :seq_size].reshape(batch_size, 2, seq_size)
     return dataset
-
-
-def _get_xlim(n_breakpoints, n_points_interval):
-    return int(n_breakpoints * n_points_interval)
-
-
-def _get_n_breakpoints(y_breakpoints):
-    return len(y_breakpoints)
-
-
-def _get_n_points_interval(n_points_interval):
-    return int(n_points_interval)
-
-
-def _get_x_mesh(y_breakpoints, n_points_interval):
-    n_breakpoints = _get_n_breakpoints(y_breakpoints)
-    x_limit = _get_xlim(n_breakpoints, n_points_interval)
-    n_points_interval = _get_n_points_interval(n_points_interval)
-    return arange(0, x_limit, n_points_interval)
-
-
-def randomize_breakpoints(
-    y_breakpoints,
-    n_seq,
-    y_delta,
-    x_delta,
-    x_excluded,
-    n_samples_interval,
-):
-    x_mesh = _get_x_mesh(y_breakpoints, n_samples_interval)
-    return randomizer(
-        x_breakpoints=x_mesh,
-        y_breakpoints=y_breakpoints,
-        n_seq=n_seq,
-        y_delta=y_delta,
-        x_delta=x_delta,
-        x_excluded=x_excluded,
-    )
 
 
 def seq_generator_freq(input):  # sourcery skip: inline-immediately-returned-variable

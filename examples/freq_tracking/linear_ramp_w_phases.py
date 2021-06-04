@@ -4,8 +4,9 @@ from simulators.common.generator import (
     data_interpolation,
     finite_diff,
     linear_interp,
-    randomize_breakpoints, to_csv,
+    to_csv,
 )
+from simulators.common.randomizer import randomize
 from simulators.freq_tracking.model import compute_phase
 from simulators.freq_tracking.viz import plot_signal, plot_freq_signal, get_x_mesh
 import numpy as np
@@ -18,7 +19,7 @@ time_interval = 1  # seconds
 n_seq = 1
 
 # Simulator
-x_rand, y_rand = randomize_breakpoints(
+x_rand, y_rand = randomize(
     y_breakpoints=freq_breakpoints,
     n_seq=n_seq,
     y_delta=2,
