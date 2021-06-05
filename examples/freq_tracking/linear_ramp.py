@@ -1,5 +1,5 @@
 # Vehicle position breakpoints
-from simulators.common.generator import (
+from simulators.common.data_handler import (
     add_derivation,
     data_interpolation,
     finite_diff,
