@@ -7,38 +7,7 @@ from numpy.random import randint, default_rng
 
 ndarray = npt.ArrayLike
 
-
-def negative_value_thresholder(velocity):
-    """
-    Force all negative position to zero value.
-    """
-    velocity[velocity < 0] = 0
-    return velocity
-
-
-def linear_interp(xp, yp):
-    x = arange(0.0, xp[-1])
-    velocities = interp(x, xp, yp)
-    velocities = negative_value_thresholder(velocities)
-    return velocities
-
-
-def polyn_interp(xp, yp):
-    x = arange(0.0, xp[-1])
-    p = polyfit(xp, yp, deg=int(len(yp) * 0.7))
-    velocities = polyval(p, x)
-    velocities = negative_value_thresholder(velocities)
-    return velocities
-
-
-
-def _init_dataset(input):
-    n_seq = input.shape[0]
-    x_limit = int(input[0, -1])
-    return zeros([n_seq, 1, x_limit])
-
-
-# def data_interpolation(position, func_interp, dt):
+# def interpolate(position, func_interp, dt):
 #     N_DERIVED = 3
 #     data = _init_dataset(position, n_derived=N_DERIVED)
 #     for i, set in enumerate(position):
@@ -47,12 +16,6 @@ def _init_dataset(input):
 #         data[(i * N_DERIVED + 2)], *_ = derived(data[i * N_DERIVED + 1], dt)
 #     return data
 
-
-def data_interpolation(x, y, func_interp):
-    dataset = _init_dataset(x)
-    for i in range(len(x)):
-        dataset[i] = func_interp(x[0], y[0])
-    return dataset
 
 
 def add_derivation(data: asarray, n_derived: int, func_derivation: Callable, dt: float):

@@ -2,25 +2,6 @@ import numpy as np
 from numpy.random import default_rng
 
 
-def _get_xlim(n_breakpoints, n_points_interval):
-    return int(n_breakpoints * n_points_interval)
-
-
-def _get_n_breakpoints(y_breakpoints):
-    return len(y_breakpoints)
-
-
-def _get_n_points_interval(n_points_interval):
-    return int(n_points_interval)
-
-
-def _linspace(y_breakpoints, n_points_interval):
-    n_breakpoints = _get_n_breakpoints(y_breakpoints)
-    x_limit = _get_xlim(n_breakpoints, n_points_interval)
-    n_points_interval = _get_n_points_interval(n_points_interval)
-    return np.arange(0, x_limit, n_points_interval)
-
-
 def randomize(
     n_samples_interval,
     y_breakpoints,
@@ -48,6 +29,27 @@ def randomize(
     return xp, yp
 
 
+# LINSPACE
+def _linspace(y_breakpoints, n_points_interval):
+    n_breakpoints = _get_n_breakpoints(y_breakpoints)
+    x_limit = _get_xlim(n_breakpoints, n_points_interval)
+    n_points_interval = _get_n_points_interval(n_points_interval)
+    return np.arange(0, x_limit, n_points_interval)
+
+
+def _get_xlim(n_breakpoints, n_points_interval):
+    return int(n_breakpoints * n_points_interval)
+
+
+def _get_n_breakpoints(y_breakpoints):
+    return len(y_breakpoints)
+
+
+def _get_n_points_interval(n_points_interval):
+    return int(n_points_interval)
+
+
+# JITTER
 def _is_randomize(a):
     return a != 0
 
