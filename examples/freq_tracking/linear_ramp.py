@@ -1,20 +1,20 @@
-# Vehicle position breakpoints
-from simulators.common.data_handler import (
+# Vehicle position pos_breakpoints
+from sysipy.common.data_handler import (
     add_derivation,
     data_interpolation,
     finite_diff,
     linear_interp,
     to_csv,
 )
-from simulators.common.randomizer import randomize
-from simulators.freq_tracking.model import compute_phase
-from simulators.freq_tracking.viz import plot_signal, plot_freq_signal, get_x_mesh
+from sysipy.common.randomizer import randomize
+from sysipy.freq_tracking.model import compute_phase
+from sysipy.freq_tracking.viz import plot_signal, plot_freq_signal, get_x_mesh
 import numpy as np
 
 # Parameters
 np.random.RandomState(12)
 freq_breakpoints = (5, 5, 15, 15)
-n_points_interval = 200  # number of points between two breakpoints
+n_points_interval = 200  # number of points between two pos_breakpoints
 time_interval = 1  # seconds
 n_seq = 100
 
@@ -29,7 +29,7 @@ x_rand, y_rand = randomize(
 )
 frequencies = data_interpolation(x_rand, y_rand, func_interp=linear_interp)
 dataset = add_derivation(
-    data=frequencies, n_derived=1, func_derivation=finite_diff, dt=10.0
+    to_derive=frequencies, n_derived=1, func_derivation=finite_diff, dt=10.0
 )
 
 n_samples = (len(freq_breakpoints) - 1) * n_points_interval

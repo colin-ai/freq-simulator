@@ -6,9 +6,9 @@ from numpy import loadtxt, zeros
 ndarray = npt.ArrayLike
 
 
-def add_derivation(data: ndarray, n_derived: int, func_derivation: Callable, dt: float):
-    dataset_expanded = zeros((data.shape[0], n_derived + 1, data.shape[-1]))
-    dataset_expanded[:, [0], :] = data
+def add_derivation(to_derive: ndarray, n_derived: int, func_derivation: Callable, dt: float):
+    dataset_expanded = zeros((to_derive.shape[0], n_derived + 1, to_derive.shape[-1]))
+    dataset_expanded[:, [0], :] = to_derive
     for i in range(n_derived):
         dataset_expanded[:, [i + 1], 1:] = func_derivation(
             dataset_expanded[:, [i], 1:] - dataset_expanded[:, [i], :-1], dt

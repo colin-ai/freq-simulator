@@ -3,7 +3,7 @@ from random import choice
 import numpy as np
 import matplotlib.pyplot as plt
 
-from simulators.common.viz import csv_to_dataset
+from sysipy.common.viz import csv_to_dataset
 
 
 # UTILS
